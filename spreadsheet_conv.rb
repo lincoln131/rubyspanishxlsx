@@ -1,4 +1,4 @@
-puts "Ruby Spreadsheet Conversion v1"
+puts "Ruby Spreadsheet Conversion v23"
 
 #ensures spreadsheet gem is installed and used
 require 'rubyXL'
@@ -14,7 +14,32 @@ column_name = []
 #starting row
 row = 1
 
-while row <=39
+#get input about number of students, warn make input integer
+puts "How many students? (1 - 50) "
+puts "*will display error if not number or number more than students in source spreadsheet*"
+total_students = gets.chomp.to_i
+
+#verbosity settings
+puts "Do you want verbose mode? (y/n)"
+verbose_mode = gets.chomp
+verbose_mode = verbose_mode.downcase
+if verbose_mode == "y"
+    verbose = 1
+    puts "Maximum verbosity enabled!"
+elsif verbose_mode == "n"
+    verbose = 0
+else
+    puts "Invalid input! Setting to verbose mode!"
+    verbose = 1
+end
+
+#set a custom error message
+error_message = "!!!!!"
+
+#tells user something is happening
+puts "Processing..."
+
+while row <= total_students
 column = 0
 heading1 = ""
 heading2 = ""
@@ -51,7 +76,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading1 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
         end
     elsif column == 32
       first = worksheet.sheet_data[row][column].value
@@ -61,7 +86,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading1 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
         end
     elsif column == 59
       first = worksheet.sheet_data[row][column].value
@@ -71,7 +96,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading1 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 6
       first = worksheet.sheet_data[row][column].value
@@ -81,7 +106,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading2 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
         end
     elsif column == 33
       first = worksheet.sheet_data[row][column].value
@@ -91,7 +116,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading2 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
         end
     elsif column == 60
       first = worksheet.sheet_data[row][column].value
@@ -101,7 +126,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading2 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 7
       first = worksheet.sheet_data[row][column].value
@@ -111,7 +136,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading3 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
         end
     elsif column == 34
       first = worksheet.sheet_data[row][column].value
@@ -121,7 +146,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading3 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
         end
     elsif column == 61
       first = worksheet.sheet_data[row][column].value
@@ -131,7 +156,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading3 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 8
       first = worksheet.sheet_data[row][column].value
@@ -141,7 +166,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading4 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
         end
     elsif column == 34
       first = worksheet.sheet_data[row][column].value
@@ -151,7 +176,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading4 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
         end
     elsif column == 62
       first = worksheet.sheet_data[row][column].value
@@ -161,7 +186,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading4 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 9
       first = worksheet.sheet_data[row][column].value
@@ -171,7 +196,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading5 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 36
       first = worksheet.sheet_data[row][column].value
@@ -181,7 +206,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading5 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 63
       first = worksheet.sheet_data[row][column].value
@@ -191,7 +216,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading5 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 10
       first = worksheet.sheet_data[row][column].value
@@ -201,7 +226,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading6 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 37
       first = worksheet.sheet_data[row][column].value
@@ -211,7 +236,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading6 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 64
       first = worksheet.sheet_data[row][column].value
@@ -221,7 +246,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading6 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 11
       first = worksheet.sheet_data[row][column].value
@@ -231,7 +256,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading7 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 38
       first = worksheet.sheet_data[row][column].value
@@ -241,7 +266,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading7 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 65
       first = worksheet.sheet_data[row][column].value
@@ -251,7 +276,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading7 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 12
       first = worksheet.sheet_data[row][column].value
@@ -261,7 +286,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading8 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 39
       first = worksheet.sheet_data[row][column].value
@@ -271,7 +296,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading8 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 65
       first = worksheet.sheet_data[row][column].value
@@ -281,7 +306,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading8 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 13
       first = worksheet.sheet_data[row][column].value
@@ -291,7 +316,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading9 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 40
       first = worksheet.sheet_data[row][column].value
@@ -301,7 +326,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading9 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 67
       first = worksheet.sheet_data[row][column].value
@@ -311,7 +336,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading9 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 14
       first = worksheet.sheet_data[row][column].value
@@ -321,7 +346,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading10 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 41
       first = worksheet.sheet_data[row][column].value
@@ -331,7 +356,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading10 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 68
       first = worksheet.sheet_data[row][column].value
@@ -341,7 +366,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading10 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 15
       first = worksheet.sheet_data[row][column].value
@@ -351,7 +376,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading11 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 42
       first = worksheet.sheet_data[row][column].value
@@ -361,17 +386,17 @@ heading24 = ""
         when "Not Demonstrated"
           heading11 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 69
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading12 << "C"
+          heading11 << "C"
         when "Not Demonstrated"
-          heading12 << "-"
+          heading11 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 16
       first = worksheet.sheet_data[row][column].value
@@ -381,7 +406,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading12 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 43
       first = worksheet.sheet_data[row][column].value
@@ -391,7 +416,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading12 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 70
       first = worksheet.sheet_data[row][column].value
@@ -401,7 +426,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading12 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 17
       first = worksheet.sheet_data[row][column].value
@@ -411,7 +436,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading13 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 44
       first = worksheet.sheet_data[row][column].value
@@ -421,7 +446,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading13 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 71
       first = worksheet.sheet_data[row][column].value
@@ -431,7 +456,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading13 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 18
       first = worksheet.sheet_data[row][column].value
@@ -441,7 +466,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading14 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 45
       first = worksheet.sheet_data[row][column].value
@@ -451,7 +476,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading14 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 72
       first = worksheet.sheet_data[row][column].value
@@ -461,7 +486,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading14 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 19
       first = worksheet.sheet_data[row][column].value
@@ -471,7 +496,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading15 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 46
       first = worksheet.sheet_data[row][column].value
@@ -481,7 +506,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading15 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 73
       first = worksheet.sheet_data[row][column].value
@@ -491,7 +516,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading15 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 20
       first = worksheet.sheet_data[row][column].value
@@ -501,7 +526,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading16 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 47
       first = worksheet.sheet_data[row][column].value
@@ -511,7 +536,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading16 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 74
       first = worksheet.sheet_data[row][column].value
@@ -521,7 +546,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading16 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 21
       first = worksheet.sheet_data[row][column].value
@@ -531,7 +556,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading17 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 48
       first = worksheet.sheet_data[row][column].value
@@ -541,7 +566,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading17 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 75
       first = worksheet.sheet_data[row][column].value
@@ -551,7 +576,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading17 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 22
       first = worksheet.sheet_data[row][column].value
@@ -561,7 +586,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading18 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 49
       first = worksheet.sheet_data[row][column].value
@@ -571,7 +596,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading18 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 76
       first = worksheet.sheet_data[row][column].value
@@ -581,7 +606,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading18 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 23
       first = worksheet.sheet_data[row][column].value
@@ -591,7 +616,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading19 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 50
       first = worksheet.sheet_data[row][column].value
@@ -601,7 +626,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading19 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 77
       first = worksheet.sheet_data[row][column].value
@@ -611,7 +636,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading19 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 24
       first = worksheet.sheet_data[row][column].value
@@ -621,7 +646,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading20 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 51
       first = worksheet.sheet_data[row][column].value
@@ -631,7 +656,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading20 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 78
       first = worksheet.sheet_data[row][column].value
@@ -641,7 +666,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading20 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 25
       first = worksheet.sheet_data[row][column].value
@@ -651,7 +676,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading21 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 52
       first = worksheet.sheet_data[row][column].value
@@ -661,7 +686,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading21 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 79
       first = worksheet.sheet_data[row][column].value
@@ -671,7 +696,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading21 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 26
       first = worksheet.sheet_data[row][column].value
@@ -681,7 +706,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading22 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 53
       first = worksheet.sheet_data[row][column].value
@@ -691,7 +716,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading22 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 80
       first = worksheet.sheet_data[row][column].value
@@ -701,7 +726,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading22 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 27
       first = worksheet.sheet_data[row][column].value
@@ -711,7 +736,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading23 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 54
       first = worksheet.sheet_data[row][column].value
@@ -721,7 +746,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading23 << "-"
         else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     elsif column == 81
       first = worksheet.sheet_data[row][column].value
@@ -731,37 +756,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading23 << "-"
         else
-          puts "UNK!"
-      end
-    elsif column == 28
-      first = worksheet.sheet_data[row][column].value
-      case first
-        when "Demonstrated"
-          heading24 << "A"
-        when "Not Demonstrated"
-          heading24 << "-"
-        else
-          puts "UNK!"
-      end
-    elsif column == 55
-      first = worksheet.sheet_data[row][column].value
-      case first
-        when "Demonstrated"
-          heading24 << "B"
-        when "Not Demonstrated"
-          heading24 << "-"
-        else
-          puts "UNK!"
-      end
-    elsif column == 82
-      first = worksheet.sheet_data[row][column].value
-      case first
-        when "Demonstrated"
-          heading24 << "C"
-        when "Not Demonstrated"
-          heading24 << "-"
-        else
-          puts "UNK!"
+          puts "#{error_message}"
       end
     end
     column = column + 1
@@ -769,32 +764,41 @@ end
 
 student = worksheet.sheet_data[row][1].value
 
-puts "Student is #{student}"
-puts "Row is #{row}"
-puts heading1
-puts heading2
-puts heading3
-puts heading4
-puts heading5
-puts heading6
-puts heading7
-puts heading8
-puts heading9
-puts heading10
-puts heading11
-puts heading12
-puts heading13
-puts heading14
-puts heading15
-puts heading16
-puts heading17
-puts heading18
-puts heading19
-puts heading20
-puts heading21
-puts heading22
-puts heading23
-puts heading24
+#check for verbosity then output
+if verbose == 1
+      puts "-----------------------------------------------------------------------------------------------------------"
+      puts " "
+      puts "Student with email address of #{student} processed"
+      puts "Row with #{row} number processed"
+      puts "#{heading1} for Objective 'NOVICE ask/respond to  predictable, formulaic questions'"
+      puts "#{heading2} for Objective 'NOVICE list, name, identify'"
+      puts "#{heading3} for Objective 'INTERMEDIATE ask, answer variety of questions'"
+      puts "#{heading4} for Objective 'INTERMEDIATE initiate, maintain, end conversation for basic needs/transactions'"
+      puts "#{heading5} for Objective 'INTERMEDIATE communicate beyond 'here & now'"
+      puts "#{heading6} for Objective 'NOVICE practiced words, phrases, sentences'"
+      puts "#{heading7} for Objective 'NOVICE formulaic/memorized questions'"
+      puts "#{heading8} for Objective 'INTERMEDIATE strings of sentences'"
+      puts "#{heading9} for Objective 'INTERMEDIATE connected sentences'"
+      puts "#{heading10} for Objective 'INTERMEDIATE ask questions to initiate/ sustain conversation'"
+      puts "#{heading11} for Objective 'NOVICE high-frequency'"
+      puts "#{heading12} for Objective 'NOVICE formulaic'"
+      puts "#{heading13} for Objective 'NOVICE practiced'"
+      puts "#{heading14} for Objective 'INTERMEDIATE familiar themes/topics'"
+      puts "#{heading15} for Objective 'INTERMEDIATE personalized'"
+      puts "#{heading16} for Objective 'NOVICE imitate modeled words'"
+      puts "#{heading17} for Objective 'NOVICE use facial expressions, gestures'"
+      puts "#{heading18} for Objective 'NOVICE resort to first language'"
+      puts "#{heading19} for Objective 'NOVICE repeat/request repetition'"
+      puts "#{heading20} for Objective 'NOVICE indicate lack of understanding'"
+      puts "#{heading21} for Objective 'INTERMEDIATE ask questions, request clarification'"
+      puts "#{heading22} for Objective 'INTERMEDIATE self-correct or restate when not understood'"
+      puts "#{heading23} for Objective 'INTERMEDIATE circumlocute'"
+      puts " "
+elsif verbose == 0
+      puts "#{student}"
+else
+      puts "Something Broke!"
+end
 
 
 #changes to the output sheet
@@ -825,9 +829,14 @@ worksheet2.add_cell(20, row, "#{heading20}")
 worksheet2.add_cell(21, row, "#{heading21}")
 worksheet2.add_cell(22, row, "#{heading22}")
 worksheet2.add_cell(23, row, "#{heading23}")
-worksheet2.add_cell(24, row, "#{heading24}")
 
 #writes the whole book
 workbook.write("./speaking.xlsx")
 row = row + 1
 end
+puts "-----------------------------------------------------------------------------------------------------------"
+puts " "
+puts "Finished."
+puts " "
+puts "-----------------------------------------------------------------------------------------------------------"
+puts " "
