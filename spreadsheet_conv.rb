@@ -15,7 +15,8 @@ column = 0
 #starting row
 row = 1
 
-while row <= 5
+5.times {
+
 heading1 = ""
 heading2 = ""
 heading3 = ""
@@ -40,7 +41,7 @@ heading21 = ""
 heading22 = ""
 heading23 = ""
 heading24 = ""
-while column <= 87
+87.times {
   column_name.push(worksheet.sheet_data[row][column].value)
     if column == 5
       first = worksheet.sheet_data[row][column].value
@@ -764,7 +765,7 @@ while column <= 87
       end
     end
 column = column + 1
-end
+}
 
 student = worksheet.sheet_data[row][1].value
 puts "Student is #{student}"
@@ -772,6 +773,8 @@ puts "Student is #{student}"
 puts "Row is #{row}"
 puts "heading1 is #{heading1}"
 
+
+=begin commenting out the writing stuff for testing
 #changes to the output sheet
 worksheet2 = workbook[1]
 #outputs the crap
@@ -804,5 +807,7 @@ worksheet2.add_cell(24, row, "#{heading24}")
 
 #writes the whole book
 workbook.write("./speaking.xlsx")
+=end
+
 row = row + 1
-end
+}
