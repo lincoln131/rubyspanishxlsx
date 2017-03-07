@@ -11,11 +11,11 @@ worksheet = workbook[0]
 
 #define some variables for later
 column_name = []
-column = 0
 #starting row
 row = 1
 
-while row <= 5
+while row <=39
+column = 0
 heading1 = ""
 heading2 = ""
 heading3 = ""
@@ -40,7 +40,8 @@ heading21 = ""
 heading22 = ""
 heading23 = ""
 heading24 = ""
-while column <= 87
+
+88.times do
   column_name.push(worksheet.sheet_data[row][column].value)
     if column == 5
       first = worksheet.sheet_data[row][column].value
@@ -166,7 +167,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading5 << "C"
+          heading5 << "A"
         when "Not Demonstrated"
           heading5 << "-"
         else
@@ -176,7 +177,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading5 << "C"
+          heading5 << "B"
         when "Not Demonstrated"
           heading5 << "-"
         else
@@ -196,7 +197,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading6 << "C"
+          heading6 << "A"
         when "Not Demonstrated"
           heading6 << "-"
         else
@@ -206,7 +207,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading6 << "C"
+          heading6 << "B"
         when "Not Demonstrated"
           heading6 << "-"
         else
@@ -226,7 +227,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading7 << "C"
+          heading7 << "A"
         when "Not Demonstrated"
           heading7 << "-"
         else
@@ -236,7 +237,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading7 << "C"
+          heading7 << "B"
         when "Not Demonstrated"
           heading7 << "-"
         else
@@ -256,7 +257,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading8 << "C"
+          heading8 << "A"
         when "Not Demonstrated"
           heading8 << "-"
         else
@@ -266,7 +267,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading8 << "C"
+          heading8 << "B"
         when "Not Demonstrated"
           heading8 << "-"
         else
@@ -286,7 +287,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading9 << "C"
+          heading9 << "A"
         when "Not Demonstrated"
           heading9 << "-"
         else
@@ -296,7 +297,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading9 << "C"
+          heading9 << "B"
         when "Not Demonstrated"
           heading9 << "-"
         else
@@ -316,7 +317,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading10 << "C"
+          heading10 << "A"
         when "Not Demonstrated"
           heading10 << "-"
         else
@@ -326,7 +327,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading10 << "C"
+          heading10 << "B"
         when "Not Demonstrated"
           heading10 << "-"
         else
@@ -346,7 +347,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading11 << "C"
+          heading11 << "A"
         when "Not Demonstrated"
           heading11 << "-"
         else
@@ -356,7 +357,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading11 << "C"
+          heading11 << "B"
         when "Not Demonstrated"
           heading11 << "-"
         else
@@ -376,7 +377,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading12 << "C"
+          heading12 << "A"
         when "Not Demonstrated"
           heading12 << "-"
         else
@@ -386,7 +387,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading12 << "C"
+          heading12 << "B"
         when "Not Demonstrated"
           heading12 << "-"
         else
@@ -406,7 +407,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading13 << "C"
+          heading13 << "A"
         when "Not Demonstrated"
           heading13 << "-"
         else
@@ -416,7 +417,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading13 << "C"
+          heading13 << "B"
         when "Not Demonstrated"
           heading13 << "-"
         else
@@ -436,7 +437,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading14 << "C"
+          heading14 << "A"
         when "Not Demonstrated"
           heading14 << "-"
         else
@@ -446,7 +447,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading14 << "C"
+          heading14 << "B"
         when "Not Demonstrated"
           heading14 << "-"
         else
@@ -466,7 +467,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading15 << "C"
+          heading15 << "A"
         when "Not Demonstrated"
           heading15 << "-"
         else
@@ -476,7 +477,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading15 << "C"
+          heading15 << "B"
         when "Not Demonstrated"
           heading15 << "-"
         else
@@ -496,7 +497,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading16 << "C"
+          heading16 << "A"
         when "Not Demonstrated"
           heading16 << "-"
         else
@@ -506,7 +507,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading16 << "C"
+          heading16 << "B"
         when "Not Demonstrated"
           heading16 << "-"
         else
@@ -526,7 +527,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading17 << "C"
+          heading17 << "A"
         when "Not Demonstrated"
           heading17 << "-"
         else
@@ -536,7 +537,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading17 << "C"
+          heading17 << "B"
         when "Not Demonstrated"
           heading17 << "-"
         else
@@ -556,7 +557,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading18 << "C"
+          heading18 << "A"
         when "Not Demonstrated"
           heading18 << "-"
         else
@@ -566,7 +567,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading18 << "C"
+          heading18 << "B"
         when "Not Demonstrated"
           heading18 << "-"
         else
@@ -586,7 +587,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading19 << "C"
+          heading19 << "A"
         when "Not Demonstrated"
           heading19 << "-"
         else
@@ -596,7 +597,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading19 << "C"
+          heading19 << "B"
         when "Not Demonstrated"
           heading19 << "-"
         else
@@ -616,7 +617,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading20 << "C"
+          heading20 << "A"
         when "Not Demonstrated"
           heading20 << "-"
         else
@@ -626,7 +627,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading20 << "C"
+          heading20 << "B"
         when "Not Demonstrated"
           heading20 << "-"
         else
@@ -646,7 +647,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading21 << "C"
+          heading21 << "A"
         when "Not Demonstrated"
           heading21 << "-"
         else
@@ -656,7 +657,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading21 << "C"
+          heading21 << "B"
         when "Not Demonstrated"
           heading21 << "-"
         else
@@ -676,7 +677,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading22 << "C"
+          heading22 << "A"
         when "Not Demonstrated"
           heading22 << "-"
         else
@@ -686,7 +687,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading22 << "C"
+          heading22 << "B"
         when "Not Demonstrated"
           heading22 << "-"
         else
@@ -706,7 +707,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading23 << "C"
+          heading23 << "A"
         when "Not Demonstrated"
           heading23 << "-"
         else
@@ -716,7 +717,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading23 << "C"
+          heading23 << "B"
         when "Not Demonstrated"
           heading23 << "-"
         else
@@ -736,7 +737,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading24 << "C"
+          heading24 << "A"
         when "Not Demonstrated"
           heading24 << "-"
         else
@@ -746,7 +747,7 @@ while column <= 87
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
-          heading24 << "C"
+          heading24 << "B"
         when "Not Demonstrated"
           heading24 << "-"
         else
@@ -763,14 +764,38 @@ while column <= 87
           puts "UNK!"
       end
     end
-column = column + 1
+    column = column + 1
 end
 
 student = worksheet.sheet_data[row][1].value
-puts "Student is #{student}"
 
+puts "Student is #{student}"
 puts "Row is #{row}"
-puts "heading1 is #{heading1}"
+puts heading1
+puts heading2
+puts heading3
+puts heading4
+puts heading5
+puts heading6
+puts heading7
+puts heading8
+puts heading9
+puts heading10
+puts heading11
+puts heading12
+puts heading13
+puts heading14
+puts heading15
+puts heading16
+puts heading17
+puts heading18
+puts heading19
+puts heading20
+puts heading21
+puts heading22
+puts heading23
+puts heading24
+
 
 #changes to the output sheet
 worksheet2 = workbook[1]
