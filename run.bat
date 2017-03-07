@@ -1,2 +1,2 @@
-ruby C:\Users\csexton.HICKORYPD\Documents\GitHub\rubytest\spreadsheet_conv_2.rb
+ruby C:\Users\csexton.HICKORYPD\Documents\GitHub\rubyspanishxlsx\spreadsheet_conv.rb
 pause
