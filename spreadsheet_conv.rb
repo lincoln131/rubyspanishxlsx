@@ -1,4 +1,25 @@
-puts "Ruby Spreadsheet Conversion v23"
+#runs as soon as program is started
+BEGIN {
+  system "cls"
+  puts "-----------------------------------------------------------------------"
+  puts " "
+  puts "Ruby Spreadsheet Conversion v1.26"
+  puts " "
+  puts "  by lincoln131"
+  puts "  2017"
+  puts " "
+  puts "-----------------------------------------------------------------------"
+}
+
+#runs at end of program
+END {
+  puts "-----------------------------------------------------------------------"
+  puts " "
+  puts "Program Finished."
+  puts " "
+  puts "-----------------------------------------------------------------------"
+  puts " "
+}
 
 #ensures spreadsheet gem is installed and used
 require 'rubyXL'
@@ -15,11 +36,31 @@ column_name = []
 row = 1
 
 #get input about number of students, warn make input integer
+puts "Step 1"
+puts "-------------------------------------------------------------------------"
+puts " "
 puts "How many students? (1 - 50) "
-puts "*will display error if not number or number more than students in source spreadsheet*"
+puts "* Will not parse if not an integer * "
+puts "* Will also max at 50 * "
+puts " "
 total_students = gets.chomp.to_i
-
+system "cls"
+puts "Step 2"
+puts "-------------------------------------------------------------------------"
+puts " "
+puts "Too many students. Limiting amount of students..." if total_students > 50 #warn about too many students
+sleep 1 if total_students > 50
+total_students = 50 if total_students > 50 #set to max if too many
+puts "Number of students set to #{total_students}" if total_students <= 50 #print number if appropriate
+puts " "
+puts "-------------------------------------------------------------------------"
+puts " "
+sleep 2
+system "cls"
 #verbosity settings
+puts "Step 3"
+puts "-------------------------------------------------------------------------"
+puts " "
 puts "Do you want verbose mode? (y/n)"
 verbose_mode = gets.chomp
 verbose_mode = verbose_mode.downcase
@@ -33,11 +74,23 @@ else
     verbose = 1
 end
 
+puts "Step 4 "
+puts "-------------------------------------------------------------------------"
+puts " "
+puts "Preparing to parse to ./speaking.xlsx for #{total_students} students" if verbose_mode == "y" #being verbose
+puts " "
+puts "-------------------------------------------------------------------------"
+puts " "
+
+sleep 5 if verbose_mode == "y" #sleep if verbose_mode
+
+
 #set a custom error message
 error_message = "!!!!!"
 
 #tells user something is happening
 puts "Processing..."
+sleep 1
 
 while row <= total_students
 column = 0
@@ -168,7 +221,7 @@ heading24 = ""
         else
           puts "#{error_message}"
         end
-    elsif column == 34
+    elsif column == 35
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
@@ -176,6 +229,7 @@ heading24 = ""
         when "Not Demonstrated"
           heading4 << "-"
         else
+          heading4 << "*"
           puts "#{error_message}"
         end
     elsif column == 62
@@ -298,7 +352,7 @@ heading24 = ""
         else
           puts "#{error_message}"
       end
-    elsif column == 65
+    elsif column == 66
       first = worksheet.sheet_data[row][column].value
       case first
         when "Demonstrated"
@@ -834,9 +888,3 @@ worksheet2.add_cell(23, row, "#{heading23}")
 workbook.write("./speaking.xlsx")
 row = row + 1
 end
-puts "-----------------------------------------------------------------------------------------------------------"
-puts " "
-puts "Finished."
-puts " "
-puts "-----------------------------------------------------------------------------------------------------------"
-puts " "
