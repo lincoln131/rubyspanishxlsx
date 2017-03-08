@@ -1,6 +1,6 @@
+#Ruby program using RubyXL to parse some spreadsheets for my wife.
 #runs as soon as program is started
-BEGIN {
-  system "cls"
+BEGIN { system "cls" #clears the screen for ease of use
   puts "-----------------------------------------------------------------------"
   puts " "
   puts "Ruby Spreadsheet Conversion v1.26"
@@ -8,72 +8,62 @@ BEGIN {
   puts "  by lincoln131"
   puts "  2017"
   puts " "
-  puts "-----------------------------------------------------------------------"
-}
+  puts "-----------------------------------------------------------------------"}
 
-#runs at end of program
-END {
+
+END {  #runs at end of program
   puts "-----------------------------------------------------------------------"
   puts " "
   puts "Program Finished."
   puts " "
   puts "-----------------------------------------------------------------------"
-  puts " "
-}
+  puts " "}
 
-#ensures spreadsheet gem is installed and used
-require 'rubyXL'
+require 'rubyXL' #ensures spreadsheet gem is installed and used
+workbook = RubyXL::Parser.parse("./speaking.xlsx") #parsing an existing workbook
+worksheet = workbook[0] #set active worksheet to first sheet of the workbook
 
-#parksing an existing workbook
-workbook = RubyXL::Parser.parse("./speaking.xlsx")
-
-#set active worksheet to first sheet of the workbook
-worksheet = workbook[0]
-
-#define some variables for later
-column_name = []
-#starting row
-row = 1
+column_name = [] #make a var
+row = 1 #starting row, skips headings
+column = 0 #starting column
+error_message = "Something broke!" # Custom Error message
 
 #get input about number of students, warn make input integer
 puts "Step 1"
-puts "-------------------------------------------------------------------------"
+puts "------------------------------------------------------------------------"
 puts " "
 puts "How many students? (1 - 50) "
 puts "* Will not parse if not an integer * "
 puts "* Will also max at 50 * "
 puts " "
-total_students = gets.chomp.to_i
-system "cls"
+total_students = gets.chomp.to_i #prompts for number of students
+system "cls" #clears the screen for ease of use
 puts "Step 2"
 puts "-------------------------------------------------------------------------"
 puts " "
 puts "Too many students. Limiting amount of students..." if total_students > 50 #warn about too many students
-sleep 1 if total_students > 50
+sleep 1 if total_students > 50 #sleeps so user can see output
 total_students = 50 if total_students > 50 #set to max if too many
 puts "Number of students set to #{total_students}" if total_students <= 50 #print number if appropriate
 puts " "
 puts "-------------------------------------------------------------------------"
 puts " "
-sleep 2
-system "cls"
+sleep 2 #sleeps so user can see output
+system "cls" #clears the screen for ease of use
+
 #verbosity settings
 puts "Step 3"
 puts "-------------------------------------------------------------------------"
 puts " "
 puts "Do you want verbose mode? (y/n)"
-verbose_mode = gets.chomp
-verbose_mode = verbose_mode.downcase
-if verbose_mode == "y"
-    verbose = 1
-    puts "Maximum verbosity enabled!"
-elsif verbose_mode == "n"
-    verbose = 0
-else
-    puts "Invalid input! Setting to verbose mode!"
-    verbose = 1
-end
+verbose_mode = gets.chomp.downcase #prompts for y/n
+#check user input for verbosity then sets variable and other stuff
+(verbose = 1) && (puts "Maximum verbosity enabled!") && (sleep 2) if verbose_mode == "y"
+(verbose = 0) if verbose_mode == "n"
+(verbose = 1) && (puts "Invalid input! Setting to verbose mode!") && (sleep 2) if verbose_mode != "y" && verbose_mode != "n"
 
+#output before processing!
+system "cls" #clears the screen for ease of use
 puts "Step 4 "
 puts "-------------------------------------------------------------------------"
 puts " "
@@ -82,809 +72,819 @@ puts " "
 puts "-------------------------------------------------------------------------"
 puts " "
 
-sleep 5 if verbose_mode == "y" #sleep if verbose_mode
-
-
-#set a custom error message
-error_message = "!!!!!"
+sleep 2.5 if verbose_mode == "y" #sleep if verbose_mode so user can see output
 
 #tells user something is happening
+system "cls" #clears the screen for ease of use
 puts "Processing..."
-sleep 1
+sleep 1 #sleeps so user can see output
 
-while row <= total_students
-column = 0
-heading1 = ""
-heading2 = ""
-heading3 = ""
-heading4 = ""
-heading5 = ""
-heading6 = ""
-heading7 = ""
-heading8 = ""
-heading9 = ""
-heading10 = ""
-heading11 = ""
-heading12 = ""
-heading13 = ""
-heading14 = ""
-heading15 = ""
-heading16 = ""
-heading17 = ""
-heading18 = ""
-heading19 = ""
-heading20 = ""
-heading21 = ""
-heading22 = ""
-heading23 = ""
-heading24 = ""
+while row <= total_students #main loop runs once per row. Each row expected to be seperate student
+column = 0 #makes sure column goes back to zero
 
-88.times do
-  column_name.push(worksheet.sheet_data[row][column].value)
-    if column == 5
-      first = worksheet.sheet_data[row][column].value
-      case first
+#break if worksheet.sheet_data[row][column] == nil #can't figure out how to make the damn thing break when it hits an empty row on spreadsheet.
+
+#blanks the objective variables for the next loop
+objective1 = ""
+objective2 = ""
+objective3 = ""
+objective4 = ""
+objective5 = ""
+objective6 = ""
+objective7 = ""
+objective8 = ""
+objective9 = ""
+objective10 = ""
+objective11 = ""
+objective12 = ""
+objective13 = ""
+objective14 = ""
+objective15 = ""
+objective16 = ""
+objective17 = ""
+objective18 = ""
+objective19 = ""
+objective20 = ""
+objective21 = ""
+objective22 = ""
+objective23 = ""
+objective24 = ""
+
+88.times do #loop to check each field and concatenate the submissions.
+            #I know there is a better way to do this, and I'll tidy it up as i get more proficient.
+            #It is mostly repated, so I'm just commenting the first instance.
+      if column == 5 #checks the column. I know I can clean this up when I get more proficient
+                     #columns are in three objective groups, due to spreadsheet having inputs for three seperate submissions
+        submission =  worksheet.sheet_data[row][column].value # if the column is correct, assigns variable
+      case submission #case for variable
         when "Demonstrated"
-          heading1 << "A"
+          objective1 << "A" #if correct column and marked 'Demonstrated', pushes an 'A' to variable. Look below for B and C
         when "Not Demonstrated"
-          heading1 << "-"
+          objective1 << "-"#if correct column and marked 'Not Demonstrated', pushes a '-' to variable
         else
-          puts "#{error_message}"
+          puts "#{error_message}" #if correct column and unexpected input, displays an error message defined above
         end
     elsif column == 32
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading1 << "B"
+          objective1 << "B" #if correct column and marked 'Demonstrated', appends a 'B' to variable
         when "Not Demonstrated"
-          heading1 << "-"
+          objective1 << "-" #if correct column and marked 'Not Demonstrated', appends a '-' to variable
         else
           puts "#{error_message}"
         end
     elsif column == 59
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading1 << "C"
+          objective1 << "C" #if correct column and marked 'Demonstrated', appends a 'C' to variable
         when "Not Demonstrated"
-          heading1 << "-"
+          objective1 << "-" #if correct column and marked 'Not Demonstrated', appends a '-' to variable
         else
           puts "#{error_message}"
       end
     elsif column == 6
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading2 << "A"
+          objective2 << "A"
         when "Not Demonstrated"
-          heading2 << "-"
+          objective2 << "-"
         else
           puts "#{error_message}"
         end
     elsif column == 33
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading2 << "B"
+          objective2 << "B"
         when "Not Demonstrated"
-          heading2 << "-"
+          objective2 << "-"
         else
           puts "#{error_message}"
         end
     elsif column == 60
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading2 << "C"
+          objective2 << "C"
         when "Not Demonstrated"
-          heading2 << "-"
+          objective2 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 7
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading3 << "A"
+          objective3 << "A"
         when "Not Demonstrated"
-          heading3 << "-"
+          objective3 << "-"
         else
           puts "#{error_message}"
         end
     elsif column == 34
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading3 << "B"
+          objective3 << "B"
         when "Not Demonstrated"
-          heading3 << "-"
+          objective3 << "-"
         else
           puts "#{error_message}"
         end
     elsif column == 61
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading3 << "C"
+          objective3 << "C"
         when "Not Demonstrated"
-          heading3 << "-"
+          objective3 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 8
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading4 << "A"
+          objective4 << "A"
         when "Not Demonstrated"
-          heading4 << "-"
+          objective4 << "-"
         else
           puts "#{error_message}"
         end
     elsif column == 35
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading4 << "B"
+          objective4 << "B"
         when "Not Demonstrated"
-          heading4 << "-"
+          objective4 << "-"
         else
-          heading4 << "*"
+          objective4 << "*"
           puts "#{error_message}"
         end
     elsif column == 62
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading4 << "C"
+          objective4 << "C"
         when "Not Demonstrated"
-          heading4 << "-"
+          objective4 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 9
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading5 << "A"
+          objective5 << "A"
         when "Not Demonstrated"
-          heading5 << "-"
+          objective5 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 36
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading5 << "B"
+          objective5 << "B"
         when "Not Demonstrated"
-          heading5 << "-"
+          objective5 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 63
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading5 << "C"
+          objective5 << "C"
         when "Not Demonstrated"
-          heading5 << "-"
+          objective5 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 10
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading6 << "A"
+          objective6 << "A"
         when "Not Demonstrated"
-          heading6 << "-"
+          objective6 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 37
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading6 << "B"
+          objective6 << "B"
         when "Not Demonstrated"
-          heading6 << "-"
+          objective6 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 64
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading6 << "C"
+          objective6 << "C"
         when "Not Demonstrated"
-          heading6 << "-"
+          objective6 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 11
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading7 << "A"
+          objective7 << "A"
         when "Not Demonstrated"
-          heading7 << "-"
+          objective7 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 38
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading7 << "B"
+          objective7 << "B"
         when "Not Demonstrated"
-          heading7 << "-"
+          objective7 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 65
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading7 << "C"
+          objective7 << "C"
         when "Not Demonstrated"
-          heading7 << "-"
+          objective7 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 12
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading8 << "A"
+          objective8 << "A"
         when "Not Demonstrated"
-          heading8 << "-"
+          objective8 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 39
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading8 << "B"
+          objective8 << "B"
         when "Not Demonstrated"
-          heading8 << "-"
+          objective8 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 66
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading8 << "C"
+          objective8 << "C"
         when "Not Demonstrated"
-          heading8 << "-"
+          objective8 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 13
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading9 << "A"
+          objective9 << "A"
         when "Not Demonstrated"
-          heading9 << "-"
+          objective9 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 40
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading9 << "B"
+          objective9 << "B"
         when "Not Demonstrated"
-          heading9 << "-"
+          objective9 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 67
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading9 << "C"
+          objective9 << "C"
         when "Not Demonstrated"
-          heading9 << "-"
+          objective9 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 14
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading10 << "A"
+          objective10 << "A"
         when "Not Demonstrated"
-          heading10 << "-"
+          objective10 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 41
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading10 << "B"
+          objective10 << "B"
         when "Not Demonstrated"
-          heading10 << "-"
+          objective10 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 68
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading10 << "C"
+          objective10 << "C"
         when "Not Demonstrated"
-          heading10 << "-"
+          objective10 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 15
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading11 << "A"
+          objective11 << "A"
         when "Not Demonstrated"
-          heading11 << "-"
+          objective11 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 42
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading11 << "B"
+          objective11 << "B"
         when "Not Demonstrated"
-          heading11 << "-"
+          objective11 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 69
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading11 << "C"
+          objective11 << "C"
         when "Not Demonstrated"
-          heading11 << "-"
+          objective11 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 16
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading12 << "A"
+          objective12 << "A"
         when "Not Demonstrated"
-          heading12 << "-"
+          objective12 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 43
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading12 << "B"
+          objective12 << "B"
         when "Not Demonstrated"
-          heading12 << "-"
+          objective12 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 70
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading12 << "C"
+          objective12 << "C"
         when "Not Demonstrated"
-          heading12 << "-"
+          objective12 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 17
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading13 << "A"
+          objective13 << "A"
         when "Not Demonstrated"
-          heading13 << "-"
+          objective13 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 44
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading13 << "B"
+          objective13 << "B"
         when "Not Demonstrated"
-          heading13 << "-"
+          objective13 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 71
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading13 << "C"
+          objective13 << "C"
         when "Not Demonstrated"
-          heading13 << "-"
+          objective13 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 18
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading14 << "A"
+          objective14 << "A"
         when "Not Demonstrated"
-          heading14 << "-"
+          objective14 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 45
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading14 << "B"
+          objective14 << "B"
         when "Not Demonstrated"
-          heading14 << "-"
+          objective14 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 72
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading14 << "C"
+          objective14 << "C"
         when "Not Demonstrated"
-          heading14 << "-"
+          objective14 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 19
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading15 << "A"
+          objective15 << "A"
         when "Not Demonstrated"
-          heading15 << "-"
+          objective15 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 46
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading15 << "B"
+          objective15 << "B"
         when "Not Demonstrated"
-          heading15 << "-"
+          objective15 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 73
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading15 << "C"
+          objective15 << "C"
         when "Not Demonstrated"
-          heading15 << "-"
+          objective15 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 20
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading16 << "A"
+          objective16 << "A"
         when "Not Demonstrated"
-          heading16 << "-"
+          objective16 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 47
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading16 << "B"
+          objective16 << "B"
         when "Not Demonstrated"
-          heading16 << "-"
+          objective16 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 74
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading16 << "C"
+          objective16 << "C"
         when "Not Demonstrated"
-          heading16 << "-"
+          objective16 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 21
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading17 << "A"
+          objective17 << "A"
         when "Not Demonstrated"
-          heading17 << "-"
+          objective17 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 48
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading17 << "B"
+          objective17 << "B"
         when "Not Demonstrated"
-          heading17 << "-"
+          objective17 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 75
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading17 << "C"
+          objective17 << "C"
         when "Not Demonstrated"
-          heading17 << "-"
+          objective17 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 22
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading18 << "A"
+          objective18 << "A"
         when "Not Demonstrated"
-          heading18 << "-"
+          objective18 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 49
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading18 << "B"
+          objective18 << "B"
         when "Not Demonstrated"
-          heading18 << "-"
+          objective18 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 76
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading18 << "C"
+          objective18 << "C"
         when "Not Demonstrated"
-          heading18 << "-"
+          objective18 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 23
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading19 << "A"
+          objective19 << "A"
         when "Not Demonstrated"
-          heading19 << "-"
+          objective19 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 50
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading19 << "B"
+          objective19 << "B"
         when "Not Demonstrated"
-          heading19 << "-"
+          objective19 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 77
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading19 << "C"
+          objective19 << "C"
         when "Not Demonstrated"
-          heading19 << "-"
+          objective19 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 24
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading20 << "A"
+          objective20 << "A"
         when "Not Demonstrated"
-          heading20 << "-"
+          objective20 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 51
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading20 << "B"
+          objective20 << "B"
         when "Not Demonstrated"
-          heading20 << "-"
+          objective20 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 78
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading20 << "C"
+          objective20 << "C"
         when "Not Demonstrated"
-          heading20 << "-"
+          objective20 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 25
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading21 << "A"
+          objective21 << "A"
         when "Not Demonstrated"
-          heading21 << "-"
+          objective21 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 52
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading21 << "B"
+          objective21 << "B"
         when "Not Demonstrated"
-          heading21 << "-"
+          objective21 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 79
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading21 << "C"
+          objective21 << "C"
         when "Not Demonstrated"
-          heading21 << "-"
+          objective21 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 26
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading22 << "A"
+          objective22 << "A"
         when "Not Demonstrated"
-          heading22 << "-"
+          objective22 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 53
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading22 << "B"
+          objective22 << "B"
         when "Not Demonstrated"
-          heading22 << "-"
+          objective22 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 80
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading22 << "C"
+          objective22 << "C"
         when "Not Demonstrated"
-          heading22 << "-"
+          objective22 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 27
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading23 << "A"
+          objective23 << "A"
         when "Not Demonstrated"
-          heading23 << "-"
+          objective23 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 54
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading23 << "B"
+          objective23 << "B"
         when "Not Demonstrated"
-          heading23 << "-"
+          objective23 << "-"
         else
           puts "#{error_message}"
       end
     elsif column == 81
-      first = worksheet.sheet_data[row][column].value
-      case first
+      submission =  worksheet.sheet_data[row][column].value
+      case submission
         when "Demonstrated"
-          heading23 << "C"
+          objective23 << "C"
         when "Not Demonstrated"
-          heading23 << "-"
+          objective23 << "-"
         else
           puts "#{error_message}"
       end
     end
-    column = column + 1
-end
 
-student = worksheet.sheet_data[row][1].value
+    column = column + 1 #next column
+end #end of bigass loop for each student's column
+
+student = worksheet.sheet_data[row][1].value #gets the student for current row
+class_period = worksheet.sheet_data[row][3].value #gets class period student is in
 
 #check for verbosity then output
 if verbose == 1
       puts "-----------------------------------------------------------------------------------------------------------"
       puts " "
       puts "Student with email address of #{student} processed"
-      puts "Row with #{row} number processed"
-      puts "#{heading1} for Objective 'NOVICE ask/respond to  predictable, formulaic questions'"
-      puts "#{heading2} for Objective 'NOVICE list, name, identify'"
-      puts "#{heading3} for Objective 'INTERMEDIATE ask, answer variety of questions'"
-      puts "#{heading4} for Objective 'INTERMEDIATE initiate, maintain, end conversation for basic needs/transactions'"
-      puts "#{heading5} for Objective 'INTERMEDIATE communicate beyond 'here & now'"
-      puts "#{heading6} for Objective 'NOVICE practiced words, phrases, sentences'"
-      puts "#{heading7} for Objective 'NOVICE formulaic/memorized questions'"
-      puts "#{heading8} for Objective 'INTERMEDIATE strings of sentences'"
-      puts "#{heading9} for Objective 'INTERMEDIATE connected sentences'"
-      puts "#{heading10} for Objective 'INTERMEDIATE ask questions to initiate/ sustain conversation'"
-      puts "#{heading11} for Objective 'NOVICE high-frequency'"
-      puts "#{heading12} for Objective 'NOVICE formulaic'"
-      puts "#{heading13} for Objective 'NOVICE practiced'"
-      puts "#{heading14} for Objective 'INTERMEDIATE familiar themes/topics'"
-      puts "#{heading15} for Objective 'INTERMEDIATE personalized'"
-      puts "#{heading16} for Objective 'NOVICE imitate modeled words'"
-      puts "#{heading17} for Objective 'NOVICE use facial expressions, gestures'"
-      puts "#{heading18} for Objective 'NOVICE resort to first language'"
-      puts "#{heading19} for Objective 'NOVICE repeat/request repetition'"
-      puts "#{heading20} for Objective 'NOVICE indicate lack of understanding'"
-      puts "#{heading21} for Objective 'INTERMEDIATE ask questions, request clarification'"
-      puts "#{heading22} for Objective 'INTERMEDIATE self-correct or restate when not understood'"
-      puts "#{heading23} for Objective 'INTERMEDIATE circumlocute'"
+      puts "Row with number #{row} processed"
+      puts "#{objective1} for Objective '#{worksheet.sheet_data[0][5].value}'"
+      puts "#{objective2} for Objective '#{worksheet.sheet_data[0][6].value}'"
+      puts "#{objective3} for Objective '#{worksheet.sheet_data[0][7].value}'"
+      puts "#{objective4} for Objective '#{worksheet.sheet_data[0][8].value}'"
+      puts "#{objective5} for Objective '#{worksheet.sheet_data[0][9].value}'"
+      puts "#{objective6} for Objective '#{worksheet.sheet_data[0][10].value}'"
+      puts "#{objective7} for Objective '#{worksheet.sheet_data[0][11].value}'"
+      puts "#{objective8} for Objective '#{worksheet.sheet_data[0][12].value}'"
+      puts "#{objective9} for Objective '#{worksheet.sheet_data[0][13].value}'"
+      puts "#{objective10} for Objective '#{worksheet.sheet_data[0][14].value}'"
+      puts "#{objective11} for Objective '#{worksheet.sheet_data[0][15].value}'"
+      puts "#{objective12} for Objective '#{worksheet.sheet_data[0][16].value}'"
+      puts "#{objective13} for Objective '#{worksheet.sheet_data[0][17].value}'"
+      puts "#{objective14} for Objective '#{worksheet.sheet_data[0][18].value}'"
+      puts "#{objective15} for Objective '#{worksheet.sheet_data[0][19].value}'"
+      puts "#{objective16} for Objective '#{worksheet.sheet_data[0][20].value}'"
+      puts "#{objective17} for Objective '#{worksheet.sheet_data[0][21].value}'"
+      puts "#{objective18} for Objective '#{worksheet.sheet_data[0][22].value}'"
+      puts "#{objective19} for Objective '#{worksheet.sheet_data[0][23].value}'"
+      puts "#{objective20} for Objective '#{worksheet.sheet_data[0][24].value}'"
+      puts "#{objective21} for Objective '#{worksheet.sheet_data[0][25].value}'"
+      puts "#{objective22} for Objective '#{worksheet.sheet_data[0][26].value}'"
+      puts "#{objective23} for Objective '#{worksheet.sheet_data[0][27].value}'"
       puts " "
+      sleep 0.33 #take a nap so user can see output
 elsif verbose == 0
-      puts "#{student}"
+      puts "#{row} - #{student} - Done!" #simple output for no verbosity
 else
-      puts "Something Broke!"
+      puts "Something Broke!" #shouldn't ever see this
 end
 
+worksheet2 = workbook[1] #defines the output sheet
 
-#changes to the output sheet
-worksheet2 = workbook[1]
-#outputs the crap
-
+#outputs the crap. I should be able to clean this up too.
 worksheet2.add_cell(0, row, "#{student}")
-worksheet2.add_cell(1, row, "#{heading1}")
-worksheet2.add_cell(2, row, "#{heading2}")
-worksheet2.add_cell(3, row, "#{heading3}")
-worksheet2.add_cell(4, row, "#{heading4}")
-worksheet2.add_cell(5, row, "#{heading5}")
-worksheet2.add_cell(6, row, "#{heading6}")
-worksheet2.add_cell(7, row, "#{heading7}")
-worksheet2.add_cell(8, row, "#{heading8}")
-worksheet2.add_cell(9, row, "#{heading9}")
-worksheet2.add_cell(10, row, "#{heading10}")
-worksheet2.add_cell(11, row, "#{heading11}")
-worksheet2.add_cell(12, row, "#{heading12}")
-worksheet2.add_cell(13, row, "#{heading13}")
-worksheet2.add_cell(14, row, "#{heading14}")
-worksheet2.add_cell(15, row, "#{heading15}")
-worksheet2.add_cell(16, row, "#{heading16}")
-worksheet2.add_cell(17, row, "#{heading17}")
-worksheet2.add_cell(18, row, "#{heading18}")
-worksheet2.add_cell(19, row, "#{heading19}")
-worksheet2.add_cell(20, row, "#{heading20}")
-worksheet2.add_cell(21, row, "#{heading21}")
-worksheet2.add_cell(22, row, "#{heading22}")
-worksheet2.add_cell(23, row, "#{heading23}")
+worksheet2.add_cell(1, row, "#{class_period}")
+worksheet2.add_cell(2, row, "#{objective1}")
+worksheet2.add_cell(3, row, "#{objective2}")
+worksheet2.add_cell(4, row, "#{objective3}")
+worksheet2.add_cell(5, row, "#{objective4}")
+worksheet2.add_cell(6, row, "#{objective5}")
+worksheet2.add_cell(7, row, "#{objective6}")
+worksheet2.add_cell(8, row, "#{objective7}")
+worksheet2.add_cell(9, row, "#{objective8}")
+worksheet2.add_cell(10, row, "#{objective9}")
+worksheet2.add_cell(11, row, "#{objective10}")
+worksheet2.add_cell(12, row, "#{objective11}")
+worksheet2.add_cell(13, row, "#{objective12}")
+worksheet2.add_cell(14, row, "#{objective13}")
+worksheet2.add_cell(15, row, "#{objective14}")
+worksheet2.add_cell(16, row, "#{objective15}")
+worksheet2.add_cell(17, row, "#{objective16}")
+worksheet2.add_cell(18, row, "#{objective17}")
+worksheet2.add_cell(19, row, "#{objective18}")
+worksheet2.add_cell(20, row, "#{objective19}")
+worksheet2.add_cell(21, row, "#{objective20}")
+worksheet2.add_cell(22, row, "#{objective21}")
+worksheet2.add_cell(23, row, "#{objective22}")
+worksheet2.add_cell(24, row, "#{objective23}")
 
-#writes the whole book
-workbook.write("./speaking.xlsx")
-row = row + 1
+#fills in first column with objective titles
+for x in 2..24
+  worksheet2.add_cell(x, 0, "#{worksheet.sheet_data[0][x+3].value}")
 end
+
+workbook.write("./speaking.xlsx") #writes the whole book
+row = row + 1 #sets up the next row
+
+end #end of the main loop for each student
