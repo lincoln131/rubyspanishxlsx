@@ -22,6 +22,7 @@ END {  #runs at end of program
 require 'rubyXL' #ensures spreadsheet gem is installed and used
 workbook = RubyXL::Parser.parse("./speaking.xlsx") #parsing an existing workbook
 worksheet = workbook[0] #set active worksheet to first sheet of the workbook
+worksheet2 = workbook[1] #defines the output sheet
 
 column_name = [] #make a var
 row = 1 #starting row, skips headings
@@ -81,7 +82,7 @@ sleep 1 #sleeps so user can see output
 
 while row <= total_students #main loop runs once per row. Each row expected to be seperate student
 column = 0 #makes sure column goes back to zero
-
+obj_group = 5 #starting point for objective column
 #break if worksheet.sheet_data[row][column] == nil #can't figure out how to make the damn thing break when it hits an empty row on spreadsheet.
 
 #blanks the objective variables for the next loop
@@ -110,10 +111,20 @@ objective22 = ""
 objective23 = ""
 objective24 = ""
 
+student = worksheet.sheet_data[row][1].value #gets the student for current row
+class_period = worksheet.sheet_data[row][3].value #gets class period student is in
+
+if verbose == 1
+      puts "-----------------------------------------------------------------------------------------------------------"
+      puts " "
+      puts "Student with email address of #{student} processed"
+      puts "Row with number #{row} processed"
+end
+
 88.times do #loop to check each field and concatenate the submissions.
             #I know there is a better way to do this, and I'll tidy it up as i get more proficient.
             #It is mostly repated, so I'm just commenting the first instance.
-      if column == 5 #checks the column. I know I can clean this up when I get more proficient
+      if column == obj_group  #checks the column. I know I can clean this up when I get more proficient
                      #columns are in three objective groups, due to spreadsheet having inputs for three seperate submissions
         submission =  worksheet.sheet_data[row][column].value # if the column is correct, assigns variable
       case submission #case for variable
@@ -124,7 +135,7 @@ objective24 = ""
         else
           puts "#{error_message}" #if correct column and unexpected input, displays an error message defined above
         end
-    elsif column == 32
+    elsif column == obj_group+27
       submission =  worksheet.sheet_data[row][column].value
       case submission
         when "Demonstrated"
@@ -134,7 +145,7 @@ objective24 = ""
         else
           puts "#{error_message}"
         end
-    elsif column == 59
+    elsif column == obj_group+54
       submission =  worksheet.sheet_data[row][column].value
       case submission
         when "Demonstrated"
@@ -144,6 +155,7 @@ objective24 = ""
         else
           puts "#{error_message}"
       end
+=begin
     elsif column == 6
       submission =  worksheet.sheet_data[row][column].value
       case submission
@@ -806,13 +818,27 @@ objective24 = ""
           puts "#{error_message}"
       end
     end
+=end
+if verbose == 1
+  puts "#{objective1} for Objective '#{worksheet.sheet_data[0][column].value}'"
+end
 
-    column = column + 1 #next column
+worksheet2.add_cell(column+2, row, "#{objective1}")
+
+column = column + 1 #next column
+obj_group += 1 #next obj_group
 end #end of bigass loop for each student's column
 
-student = worksheet.sheet_data[row][1].value #gets the student for current row
-class_period = worksheet.sheet_data[row][3].value #gets class period student is in
+if verbose == 1
+      puts " "
+      sleep 0.33 #take a nap so user can see output
+elsif verbose == 0
+      puts "#{row} - #{student} - Done!" #simple output for no verbosity
+else
+      puts "Something Broke!" #shouldn't ever see this
+end
 
+=begin
 #check for verbosity then output
 if verbose == 1
       puts "-----------------------------------------------------------------------------------------------------------"
@@ -850,6 +876,8 @@ else
       puts "Something Broke!" #shouldn't ever see this
 end
 
+
+
 worksheet2 = workbook[1] #defines the output sheet
 
 #outputs the crap. I should be able to clean this up too.
@@ -879,6 +907,8 @@ worksheet2.add_cell(22, row, "#{objective21}")
 worksheet2.add_cell(23, row, "#{objective22}")
 worksheet2.add_cell(24, row, "#{objective23}")
 
+=end
+
 #fills in first column with objective titles
 for x in 2..24
   worksheet2.add_cell(x, 0, "#{worksheet.sheet_data[0][x+3].value}")
@@ -888,3 +918,4 @@ workbook.write("./speaking.xlsx") #writes the whole book
 row = row + 1 #sets up the next row
 
 end #end of the main loop for each student
+end
