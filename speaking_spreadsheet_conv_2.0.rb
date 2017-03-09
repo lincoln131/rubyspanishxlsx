@@ -1,7 +1,10 @@
 #Ruby program using RubyXL to parse some spreadsheets for my wife.
 #runs as soon as program is started
 BEGIN { num_of_standards = 23
+        num_of_students = 39
         path = "./speaking.xlsx"
+        blank = " "
+        time = Time.new
   system "cls" #clears the screen for ease of use
   puts "-----------------------------------------------------------------------"
   puts " "
@@ -11,17 +14,11 @@ BEGIN { num_of_standards = 23
   puts "  2017"
   puts " "
   puts "This program is currently defaulted to #{num_of_standards} standards."
+  puts "The default number of students is currently #{num_of_students}."
   puts "The default path is currently #{path}."
+
+  puts "The default for unsubmitted objectives is '#{blank}'"
   puts "-----------------------------------------------------------------------"}
-
-
-END {  #runs at end of program
-  puts "-----------------------------------------------------------------------"
-  puts " "
-  puts "Program Finished."
-  puts " "
-  puts "-----------------------------------------------------------------------"
-  puts " "}
 
 require 'rubyXL' #ensures spreadsheet gem is installed and used
 workbook = RubyXL::Parser.parse(path) #parsing an existing workbook
@@ -46,6 +43,7 @@ system "cls" #clears the screen for ease of use
 puts "Step 2"
 puts "-------------------------------------------------------------------------"
 puts " "
+puts "No user input. Defaulting to #{num_of_students}" && total_students = num_of_students if total_students <= 0
 puts "Too many students. Limiting amount of students..." if total_students > 50 #warn about too many students
 sleep 1 if total_students > 50 #sleeps so user can see output
 total_students = 50 if total_students > 50 #set to max if too many
@@ -63,7 +61,7 @@ puts " "
 puts "Do you want verbose mode? (y/n)"
 verbose_mode = gets.chomp.downcase #prompts for y/n
 #check user input for verbosity then sets variable and other stuff
-(verbose = 1) && (puts "Maximum verbosity enabled!") if verbose_mode == "y"
+(verbose = 1) && (puts "Maximum verbosity enabled !") if verbose_mode == "y"
 (verbose = 0) if verbose_mode == "n"
 (verbose = 1) if (verbose_mode != "y") && (verbose_mode != "n")
 sleep 2 if verbose_mode == "y"
@@ -74,10 +72,10 @@ puts "Step 4 "
 puts "-------------------------------------------------------------------------"
 puts " "
 puts "Preparing to parse to ./speaking.xlsx for #{total_students} students" if verbose_mode == "y" #being verbose
-puts " "
-puts "-------------------------------------------------------------------------"
-puts " "
-sleep 1.5 if verbose_mode == "y" #sleep if verbose_mode so user can see output
+puts " " if verbose_mode == "y" #being verbose
+puts "-------------------------------------------------------------------------" if verbose_mode == "y" #being verbose
+puts " " if verbose_mode == "y" #being verbose
+sleep 0.5 if verbose_mode == "y" #sleep if verbose_mode so user can see output
 
 #tells user something is happening
 puts "Processing..."
@@ -100,10 +98,11 @@ worksheet2.add_cell(1, row, "#{url}")    #writes the url for current student
 worksheet2.add_cell(2, row, "#{class_period}")    #writes the classperiod for current student
 
 if verbose == 1 && column = 5 #verbosity output
+      time = Time.new
       puts "----------------------------------------------------------------------------"
       puts " "
-      puts "Student with email address of #{student} processed"
-      puts "Row with number #{row} processed"
+      puts "Student with email address of #{student} processed at #{time.inspect}"
+      puts "Row number #{row} processed successfully"
 end
 
 #Loop for each student's objectives
@@ -117,7 +116,7 @@ num_of_standards.times do #loop to check each field and concatenate the submissi
           when "Demonstrated"
             objective << "A" #if correct column and marked 'Demonstrated', pushes an 'A' to variable. Look below for B and C
           when "Not Demonstrated"
-            objective << "-"#if correct column and marked 'Not Demonstrated', pushes a '-' to variable
+            objective << blank#if correct column and marked 'Not Demonstrated', pushes a '-' to variable
           else
             objective = "Skipped"
           end
@@ -125,7 +124,7 @@ num_of_standards.times do #loop to check each field and concatenate the submissi
           when "Demonstrated"
             objective << "B" #if correct column and marked 'Demonstrated', appends a 'B' to variable
           when "Not Demonstrated"
-            objective << "-" #if correct column and marked 'Not Demonstrated', appends a '-' to variable
+            objective << blank #if correct column and marked 'Not Demonstrated', appends a '-' to variable
           else
               objective = "Skipped"
         end
@@ -133,7 +132,7 @@ num_of_standards.times do #loop to check each field and concatenate the submissi
           when "Demonstrated"
             objective << "C" #if correct column and marked 'Demonstrated', appends a 'C' to variable
           when "Not Demonstrated"
-            objective << "-" #if correct column and marked 'Not Demonstrated', appends a '-' to variable
+            objective << blank #if correct column and marked 'Not Demonstrated', appends a '-' to variable
           else
             objective = "Skipped"
         end
@@ -166,3 +165,12 @@ workbook.write("./speaking.xlsx") #writes the whole book
 row = row + 1 #sets up the next row
 
 end #end of the main loop for each student
+
+END {  time = Time.new    #runs at end of program
+  puts "-----------------------------------------------------------------------"
+  puts " "
+  puts "Program Finished."
+  puts time.inspect if verbose_mode == "y"
+  puts " "
+  puts "-----------------------------------------------------------------------"
+  puts " "}
