@@ -1,13 +1,17 @@
 #Ruby program using RubyXL to parse some spreadsheets for my wife.
 #runs as soon as program is started
-BEGIN { system "cls" #clears the screen for ease of use
+BEGIN { num_of_standards = 23
+        path = "./speaking.xlsx"
+  system "cls" #clears the screen for ease of use
   puts "-----------------------------------------------------------------------"
   puts " "
-  puts "Ruby Spreadsheet Conversion v1.26"
+  puts "Speaking Responses Spreadsheet Conversion v2.0"
   puts " "
   puts "  by lincoln131"
   puts "  2017"
   puts " "
+  puts "This program is currently defaulted to #{num_of_standards} standards."
+  puts "The default path is currently #{path}."
   puts "-----------------------------------------------------------------------"}
 
 
@@ -20,7 +24,7 @@ END {  #runs at end of program
   puts " "}
 
 require 'rubyXL' #ensures spreadsheet gem is installed and used
-workbook = RubyXL::Parser.parse("./speaking.xlsx") #parsing an existing workbook
+workbook = RubyXL::Parser.parse(path) #parsing an existing workbook
 worksheet = workbook[0] #set active worksheet to first sheet of the workbook
 worksheet2 = workbook[1] #defines the output sheet
 
@@ -103,7 +107,7 @@ if verbose == 1 && column = 5 #verbosity output
 end
 
 #Loop for each student's objectives
-23.times do #loop to check each field and concatenate the submissions. 23 is the number of standards in this particular skill
+num_of_standards.times do #loop to check each field and concatenate the submissions. 23 is the number of standards in this particular skill
       submission =  worksheet.sheet_data[row][column].value
       if column == obj_group
         submission1 =  worksheet.sheet_data[row][column].value
@@ -136,14 +140,13 @@ end
         worksheet2.add_cell(column-2, row, "#{objective}") unless objective == "Skipped"
       end
 
-
       if verbose == 1 && row >= 1 && obj_group >= 5 #more verbosity controls
         puts "#{objective} for Objective '#{worksheet.sheet_data[0][column].value}'"
       end
 
       obj_group += 1 if column == obj_group #next obj_group if it was one that was used
       column = column + 1 #next column
-      objective = " "
+      objective = " " #blanks objective for next pass
 
 end #end of bigass loop for each student's column
 
