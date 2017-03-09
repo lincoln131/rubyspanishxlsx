@@ -1,10 +1,15 @@
 #Ruby program using RubyXL to parse some spreadsheets for my wife.
+
 #runs as soon as program is started
 BEGIN { num_of_standards = 23
         num_of_students = 39
         path = "./speaking.xlsx"
         blank = " "
         time = Time.new
+        sample1_objective_start = 5
+        sample2_objective_start = 27
+        sample3_objective_start = 54
+
   system "cls" #clears the screen for ease of use
   puts "-----------------------------------------------------------------------"
   puts " "
@@ -16,7 +21,6 @@ BEGIN { num_of_standards = 23
   puts "This program is currently defaulted to #{num_of_standards} standards."
   puts "The default number of students is currently #{num_of_students}."
   puts "The default path is currently #{path}."
-
   puts "The default for unsubmitted objectives is '#{blank}'"
   puts "-----------------------------------------------------------------------"}
 
@@ -84,7 +88,7 @@ sleep 1 #sleeps so user can see output
 #Main Loop for each student
 while row <= total_students #main loop runs once per row. Each row expected to be seperate student
 column = 1 #makes sure column goes back to default
-obj_group = 5 #starting point for objective column
+obj_group = sample1_objective_start #starting point for objective column
 #break if worksheet.sheet_data[row][column] == nil #can't figure out how to make the damn thing break when it hits an empty row on spreadsheet.
 
 #blanks the objective variables for the next loop
@@ -110,8 +114,8 @@ num_of_standards.times do #loop to check each field and concatenate the submissi
       submission =  worksheet.sheet_data[row][column].value
       if column == obj_group
         submission1 =  worksheet.sheet_data[row][column].value
-        submission2 =  worksheet.sheet_data[row][column+27].value
-        submission3 =  worksheet.sheet_data[row][column+54].value
+        submission2 =  worksheet.sheet_data[row][column+sample2_objective_start].value
+        submission3 =  worksheet.sheet_data[row][column+sample3_objective_start].value
         case submission #case for variable
           when "Demonstrated"
             objective << "A" #if correct column and marked 'Demonstrated', pushes an 'A' to variable. Look below for B and C
@@ -173,4 +177,5 @@ END {  time = Time.new    #runs at end of program
   puts time.inspect if verbose_mode == "y"
   puts " "
   puts "-----------------------------------------------------------------------"
-  puts " "}
+  puts " "
+}
