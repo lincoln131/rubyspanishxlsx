@@ -29,6 +29,8 @@ workbook = RubyXL::Parser.parse(path) #parsing an existing workbook
 worksheet = workbook[0] #set active worksheet to first sheet of the workbook
 worksheet2 = workbook[1] #defines the output sheet
 
+
+
 row = 1 #starting row, skips headings
 column = 0 #starting column
 error_message = "Something broke!" # Custom Error message
@@ -37,9 +39,9 @@ error_message = "Something broke!" # Custom Error message
 puts "Step 1"
 puts "------------------------------------------------------------------------"
 puts " "
-puts "How many students? (1 - 50) "
+puts "How many students? (1 - #{num_of_students}) Or press enter for default maximum"
 puts "* Will not parse if not an integer * "
-puts "* Will also max at 50 * "
+puts "* Will also max at #{num_of_students}, which is the current default * "
 puts " "
 total_students = gets.chomp.to_i #prompts for number of students
 system "cls" #clears the screen for ease of use
@@ -49,9 +51,9 @@ puts "-------------------------------------------------------------------------"
 puts " "
 puts "No user input. Defaulting to #{num_of_students}" && total_students = num_of_students if total_students <= 0
 puts "Too many students. Limiting amount of students..." if total_students > 50 #warn about too many students
-sleep 1 if total_students > 50 #sleeps so user can see output
-total_students = 50 if total_students > 50 #set to max if too many
-puts "Number of students set to #{total_students}" if total_students <= 50 #print number if appropriate
+sleep 1 if total_students > num_of_students #sleeps so user can see output
+total_students = num_of_students if total_students > num_of_students #set to max if too many
+puts "Number of students set to #{total_students}" if total_students <= num_of_students #print number if appropriate
 puts " "
 puts "-------------------------------------------------------------------------"
 puts " "
@@ -62,7 +64,7 @@ system "cls" #clears the screen for ease of use
 puts "Step 3"
 puts "-------------------------------------------------------------------------"
 puts " "
-puts "Do you want verbose mode? (y/n)"
+puts "Do you want verbose mode? (y/n) Or press enter to default to verbose mode"
 verbose_mode = gets.chomp.downcase #prompts for y/n
 #check user input for verbosity then sets variable and other stuff
 (verbose = 1) && (puts "Maximum verbosity enabled !") if verbose_mode == "y"
@@ -89,10 +91,12 @@ sleep 1 #sleeps so user can see output
 while row <= total_students #main loop runs once per row. Each row expected to be seperate student
 column = 1 #makes sure column goes back to default
 obj_group = sample1_objective_start #starting point for objective column
-#break if worksheet.sheet_data[row][column] == nil #can't figure out how to make the damn thing break when it hits an empty row on spreadsheet.
+
+#break if row > num_of_students #can't figure out how to make the damn thing break when it hits an empty row on spreadsheet.
+break if worksheet.sheet_data[row][1].value.nil?
 
 #blanks the objective variables for the next loop
-objective = " "
+objective = ""
 
 student = worksheet.sheet_data[row][1].value #gets the student for current row
 url = worksheet.sheet_data[row][2].value #gets url for student
