@@ -5,7 +5,7 @@ BEGIN { num_of_standards = 23
         num_of_students = 39
         path = "./speaking.xlsx"
         blank = " "
-        time = Time.new
+
         sample1_objective_start = 5
         sample2_objective_start = 27
         sample3_objective_start = 54
@@ -57,7 +57,7 @@ puts "Number of students set to #{total_students}" if total_students <= num_of_s
 puts " "
 puts "-------------------------------------------------------------------------"
 puts " "
-sleep 2 #sleeps so user can see output
+sleep 1 #sleeps so user can see output
 system "cls" #clears the screen for ease of use
 
 #verbosity settings
@@ -70,7 +70,7 @@ verbose_mode = gets.chomp.downcase #prompts for y/n
 (verbose = 1) && (puts "Maximum verbosity enabled !") if verbose_mode == "y"
 (verbose = 0) if verbose_mode == "n"
 (verbose = 1) if (verbose_mode != "y") && (verbose_mode != "n")
-sleep 2 if verbose_mode == "y"
+sleep 1.5 if verbose_mode == "y"
 system "cls" #clears the screen for ease of use
 
 #output before processing
@@ -85,7 +85,10 @@ sleep 0.5 if verbose_mode == "y" #sleep if verbose_mode so user can see output
 
 #tells user something is happening
 puts "Processing..."
-sleep 1 #sleeps so user can see output
+time = Time.new
+start_time = time.to_i
+puts "Start time is #{time}"
+sleep 0.75 #sleeps so user can see output
 
 #Main Loop for each student
 while row <= total_students #main loop runs once per row. Each row expected to be seperate student
@@ -96,7 +99,7 @@ obj_group = sample1_objective_start #starting point for objective column
 break if worksheet.sheet_data[row][1].value.nil?
 
 #blanks the objective variables for the next loop
-objective = ""
+objective = " "
 
 student = worksheet.sheet_data[row][1].value #gets the student for current row
 url = worksheet.sheet_data[row][2].value #gets url for student
@@ -109,7 +112,7 @@ if verbose == 1 && column = 5 #verbosity output
       time = Time.new
       puts "----------------------------------------------------------------------------"
       puts " "
-      puts "Student with email address of #{student} processed at #{time.inspect}"
+      puts "Student with email address of #{student} processed at #{Time.now}"
       puts "Row number #{row} processed successfully"
 end
 
@@ -136,7 +139,7 @@ num_of_standards.times do #loop to check each field and concatenate the submissi
           else
               objective = "Skipped"
         end
-        case submission
+        case submission3
           when "Demonstrated"
             objective << "C" #if correct column and marked 'Demonstrated', appends a 'C' to variable
           when "Not Demonstrated"
@@ -153,13 +156,14 @@ num_of_standards.times do #loop to check each field and concatenate the submissi
 
       obj_group += 1 if column == obj_group #next obj_group if it was one that was used
       column = column + 1 #next column
+      break if worksheet.sheet_data[row][1].value.nil?
       objective = " " #blanks objective for next pass
 
 end #end of bigass loop for each student's column
 
 if verbose == 1 #more verbosity outputs
       puts " "
-      #sleep 0.25 #take a nap so user can see output
+      sleep 0.25 #take a nap so user can see output
 elsif verbose == 0
       puts "#{row} - #{student} - Done!" #simple output for no verbosity
 end
@@ -177,9 +181,14 @@ end #end of the main loop for each student
 END {  time = Time.new    #runs at end of program
   puts "-----------------------------------------------------------------------"
   puts " "
-  puts "Program Finished."
-  puts time.inspect if verbose_mode == "y"
+  puts "Program Finished at #{Time.now}" if verbose == 1
+  puts "Program Finished" if verbose == 0
+  time = Time.now
+  end_time = time.to_i
+  run_time = end_time - start_time
+  puts "It took #{run_time} seconds to process #{total_students} students."
   puts " "
   puts "-----------------------------------------------------------------------"
   puts " "
+  system "start excel speaking.xlsx"
 }

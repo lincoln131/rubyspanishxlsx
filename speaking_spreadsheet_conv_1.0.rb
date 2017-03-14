@@ -10,15 +10,6 @@ BEGIN { system "cls" #clears the screen for ease of use
   puts " "
   puts "-----------------------------------------------------------------------"}
 
-
-END {  #runs at end of program
-  puts "-----------------------------------------------------------------------"
-  puts " "
-  puts "Program Finished."
-  puts " "
-  puts "-----------------------------------------------------------------------"
-  puts " "}
-
 require 'rubyXL' #ensures spreadsheet gem is installed and used
 workbook = RubyXL::Parser.parse("./speaking.xlsx") #parsing an existing workbook
 worksheet = workbook[0] #set active worksheet to first sheet of the workbook
@@ -77,6 +68,9 @@ sleep 2.5 if verbose_mode == "y" #sleep if verbose_mode so user can see output
 #tells user something is happening
 system "cls" #clears the screen for ease of use
 puts "Processing..."
+time = Time.new
+start_time = time.to_i
+puts "Start time is #{time}"
 sleep 1 #sleeps so user can see output
 
 while row <= total_students #main loop runs once per row. Each row expected to be seperate student
@@ -815,9 +809,10 @@ class_period = worksheet.sheet_data[row][3].value #gets class period student is 
 
 #check for verbosity then output
 if verbose == 1
+      time = Time.new
       puts "-----------------------------------------------------------------------------------------------------------"
       puts " "
-      puts "Student with email address of #{student} processed"
+      puts "Student with email address of #{student} processed  at #{Time.now}"
       puts "Row with number #{row} processed"
       puts "#{objective1} for Objective '#{worksheet.sheet_data[0][5].value}'"
       puts "#{objective2} for Objective '#{worksheet.sheet_data[0][6].value}'"
@@ -888,3 +883,18 @@ workbook.write("./speaking.xlsx") #writes the whole book
 row = row + 1 #sets up the next row
 
 end #end of the main loop for each student
+
+END {  #runs at end of program
+  time = Time.new
+  puts "-----------------------------------------------------------------------"
+  puts " "
+  puts "Program Finishedat #{Time.now}" if verbose == 1
+  puts "Program Finished" if verbose == 0
+  time = Time.now
+  end_time = time.to_i
+  run_time = end_time - start_time
+  puts "It took #{run_time} seconds to process #{total_students} students."
+  puts " "
+  puts "-----------------------------------------------------------------------"
+  puts " "
+}
