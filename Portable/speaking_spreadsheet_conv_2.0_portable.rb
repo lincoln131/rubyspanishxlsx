@@ -139,7 +139,7 @@ num_of_standards.times do #loop to check each field and concatenate the submissi
           else
               objective = "Skipped"
         end
-        case submission
+        case submission3
           when "Demonstrated"
             objective << "C" #if correct column and marked 'Demonstrated', appends a 'C' to variable
           when "Not Demonstrated"
